@@ -152,6 +152,7 @@ class DatasetPreProcessor(chainer.dataset.DatasetMixin):
             raise InvalidArgumentError
 
         new_sz = (int(xh*scale[0]), int(xw*scale[1]))
+        # resezi module Performs interpolation to up-size or down-size images.
         image = transform.resize(image, new_sz, mode='constant')
 
         xh, xw = image.shape[:2]
@@ -166,6 +167,9 @@ class DatasetPreProcessor(chainer.dataset.DatasetMixin):
             return image, (m0, m1), (d0, d1)
 
     def flip(self, image, gt):
+        """
+        Functions for data augmentation with a certain probability
+        """
         do_flip_xy = np.random.randint(0, 2)
         do_flip_x = np.random.randint(0, 2)
         do_flip_y = np.random.randint(0, 2)
